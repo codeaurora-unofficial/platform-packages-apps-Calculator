@@ -38,6 +38,7 @@ class Logic {
     private History mHistory;
     private String  mResult = "";
     private boolean mIsError = false;
+    private final String mOverflow;
     private int mLineLength = 0;
 
     private static final String INFINITY_UNICODE = "\u221e";
@@ -58,6 +59,8 @@ class Logic {
 
     private int mDeleteMode = DELETE_MODE_BACKSPACE;
 
+	private final String mDivisorString;
+    private final String diverror;
     public interface Listener {
         void onDeleteModeChange();
     }
@@ -72,6 +75,9 @@ class Logic {
         mHistory = history;
         mDisplay = display;
         mDisplay.setLogic(this);
+		mDivisorString = context.getResources().getString(R.string.zero_be_divisor);
+		mOverflow = context.getResources().getString(R.string.error);
+		diverror = context.getResources().getString(R.string.div)+"0";
     }
 
     public void setListener(Listener listener) {
@@ -167,14 +173,32 @@ class Logic {
         clear(mDeleteMode == DELETE_MODE_CLEAR);
     }
 
-    void onEnter() {
-        if (mDeleteMode == DELETE_MODE_CLEAR) {
-            clearWithHistory(false); // clear after an Enter on result
-        } else {
-            evaluateAndShowResult(getText(), CalculatorDisplay.Scroll.UP);
-        }
+//    void onEnter() {
+//        if (mDeleteMode == DELETE_MODE_CLEAR) {
+//            clearWithHistory(false); // clear after an Enter on result
+//        } else {
+//            evaluateAndShowResult(getText(), CalculatorDisplay.Scroll.UP);
+//        }
+//    }
+        boolean onEnter(){
+    	String text = getText();
+    	//this part can check whether user's input is right,if wrong ,throw a exception
+    	try {
+    		mIsError = false;
+			mResult = evaluate(text);
+			
+		} catch (SyntaxException e) {
+			mIsError = true;
+			mResult = mErrorString;
+		}
+    	//after check ,we begin to calculate
+    	if (!mIsError) {
+			// mHistory.enter(text);
+			evaluateAndShowResult(getText(),
+					CalculatorDisplay.Scroll.UP);
+		}
+    	return mIsError;
     }
-
     public void evaluateAndShowResult(String text, Scroll scroll) {
         try {
             String result = evaluate(text);
@@ -246,6 +270,18 @@ class Logic {
                 break;
             }
         }
+		 if (result.contains(INFINITY)||result.contains(NAN)) { // treat NaN and INFINITY as Error
+		    CharSequence div_error=diverror.subSequence(0,2);
+			
+			if (input.contains(div_error)) {
+				mResult = mDivisorString;
+				return mResult;
+			} else {
+				mIsError = true;
+				return mOverflow;
+			}
+			
+		}
         return result.replace('-', MINUS).replace(INFINITY, INFINITY_UNICODE);
     }
 
@@ -279,10 +315,10 @@ class Logic {
         // The standard scientific formatter is basically what we need. We will
         // start with what it produces and then massage it a bit.
         String result = String.format(Locale.US, "%" + mLineLength + "." + precision + "g", value);
-        if (result.equals(NAN)) { // treat NaN as Error
-            mIsError = true;
-            return mErrorString;
-        }
+//        if (result.equals(NAN)) { // treat NaN as Error
+//            mIsError = true;
+//            return mErrorString;
+//        }
         String mantissa = result;
         String exponent = null;
         int e = result.indexOf('e');

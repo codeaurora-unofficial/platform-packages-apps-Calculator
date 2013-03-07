@@ -16,20 +16,24 @@
 
 package com.android.calculator2;
 
+import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 class EventListener implements View.OnKeyListener,
                                View.OnClickListener,
                                View.OnLongClickListener {
     Logic mHandler;
     ViewPager mPager;
+    Context mContext;
 
-    void setHandler(Logic handler, ViewPager pager) {
+    void setHandler(Logic handler, ViewPager pager,Context context) {
         mHandler = handler;
         mPager = pager;
+        mContext = context;
     }
 
     @Override
@@ -45,7 +49,11 @@ class EventListener implements View.OnKeyListener,
             break;
 
         case R.id.equal:
-            mHandler.onEnter();
+//            mHandler.onEnter();
+           if (mHandler.onEnter()) {
+				Toast.makeText(mContext, R.string.errorCH,
+						Toast.LENGTH_SHORT).show();
+			}
             break;
 
         default:
