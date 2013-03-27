@@ -98,6 +98,8 @@
     <!-- Menu item text to take user to the screen with the advanced functions, such as sin, cos, ln, log, etc. -->
     <string name="advanced">Advanced panel</string>
     <!-- Menu item text to clear the calculation history. -->
+    <string name="zero_be_divisor">Divisor can not be 0</string>
+    <string name="errorCH">expression is error or result is overflow ，check please</string>
     <string name="clear_history">Clear history</string>
     <!-- Toast shown when text is copied to the clipboard. -->
     <string name="text_copied_toast">Text copied.</string>

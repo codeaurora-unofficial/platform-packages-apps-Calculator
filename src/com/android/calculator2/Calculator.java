@@ -108,7 +108,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             mPager.setCurrentItem(state == null ? 0 : state.getInt(STATE_CURRENT_VIEW, 0));
         }
 
-        mListener.setHandler(mLogic, mPager);
+        mListener.setHandler(mLogic, mPager,Calculator.this);
         mDisplay.setOnKeyListener(mListener);
 
         if (!ViewConfiguration.get(this).hasPermanentMenuKey()) {
