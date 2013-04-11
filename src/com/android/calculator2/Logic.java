@@ -21,6 +21,7 @@ import com.android.calculator2.CalculatorDisplay.Scroll;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.content.Context;
 import android.content.res.Resources;
 
@@ -58,6 +59,7 @@ class Logic {
     public final static int DELETE_MODE_CLEAR = 1;
 
     private int mDeleteMode = DELETE_MODE_BACKSPACE;
+    private final String mToolongString;
 
 	private final String mDivisorString;
     private final String diverror;
@@ -75,6 +77,7 @@ class Logic {
         mHistory = history;
         mDisplay = display;
         mDisplay.setLogic(this);
+        mToolongString=context.getResources().getString(R.string.number_too_long);
 		mDivisorString = context.getResources().getString(R.string.zero_be_divisor);
 		mOverflow = context.getResources().getString(R.string.error);
 		diverror = context.getResources().getString(R.string.div)+"0";
@@ -110,6 +113,10 @@ class Logic {
     }
 
     void insert(String delta) {
+    	 if(mDisplay.length()>=mDisplay.MAX_LENGTH) {
+    		 Toast.makeText(mContext, mToolongString,
+                     Toast.LENGTH_SHORT).show();
+    	 }
         mDisplay.insert(delta);
         setDeleteMode(DELETE_MODE_BACKSPACE);
     }
