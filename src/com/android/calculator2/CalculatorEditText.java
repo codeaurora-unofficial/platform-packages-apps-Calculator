@@ -57,7 +57,7 @@ public class CalculatorEditText extends EditText {
     public boolean onTouchEvent(MotionEvent event) {
        if (event.getActionMasked() == MotionEvent.ACTION_UP) {
             // Hack to prevent keyboard and insertion handle from showing.
-           cancelLongPress();
+       //    cancelLongPress();
         }
         return super.onTouchEvent(event);
     }
