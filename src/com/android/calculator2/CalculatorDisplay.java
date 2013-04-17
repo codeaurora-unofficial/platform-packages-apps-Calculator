@@ -19,6 +19,7 @@ package com.android.calculator2;
 import android.content.Context;
 import android.graphics.Rect;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
 import android.text.method.NumberKeyListener;
@@ -40,6 +41,7 @@ class CalculatorDisplay extends ViewSwitcher {
         "0123456789.+-*/\u2212\u00d7\u00f7()!%^".toCharArray();
 
     private static final int ANIM_DURATION = 500;
+    public static final int MAX_LENGTH=30;
 
     enum Scroll { UP, DOWN, NONE }
 
@@ -88,6 +90,8 @@ class CalculatorDisplay extends ViewSwitcher {
             text.setEditableFactory(factory);
             text.setKeyListener(calculatorKeyListener);
             text.setSingleLine();
+            text.setFilters(new InputFilter[] {
+                    new InputFilter.LengthFilter(MAX_LENGTH)});
         }
     }
 
@@ -115,6 +119,12 @@ class CalculatorDisplay extends ViewSwitcher {
         int cursor = editor.getSelectionStart();
         editor.getText().insert(cursor, delta);
     }
+    
+    int length() {
+        EditText editor=(EditText)getCurrentView();
+        int textlength=editor.getText().length();
+        return textlength;
+     }
 
     EditText getEditText() {
         return (EditText) getCurrentView();
