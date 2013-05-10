@@ -209,6 +209,11 @@ class Logic {
     public void evaluateAndShowResult(String text, Scroll scroll) {
         try {
             String result = evaluate(text);
+		    if(text.equals(result)){
+			mResult = "";
+			mDisplay.setText(mResult, scroll);
+			setDeleteMode(DELETE_MODE_CLEAR);
+		    }
             if (!text.equals(result)) {
                 mHistory.enter(text);
                 mResult = result;

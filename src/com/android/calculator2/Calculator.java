@@ -115,7 +115,7 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             createFakeMenu();
         }
 
-        mLogic.resumeWithHistory();
+//        mLogic.resumeWithHistory();
         updateDeleteMode();
     }
 
