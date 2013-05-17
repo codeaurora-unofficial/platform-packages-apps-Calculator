@@ -125,7 +125,10 @@ class CalculatorDisplay extends ViewSwitcher {
         int textlength=editor.getText().length();
         return textlength;
      }
-
+     void setSelection(int i) {
+         EditText text = (EditText) getCurrentView();
+         text.setSelection(i);
+     }
     EditText getEditText() {
         return (EditText) getCurrentView();
     }

@@ -55,7 +55,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
     private static final boolean DEBUG  = false;
     private static final boolean LOG_ENABLED = false;
     private static final String STATE_CURRENT_VIEW = "state-current-view";
-
+    private static final String  CURRENT_CURSOR="current_cursor";
+    private static final String  FINAL_TEXT_VIEW="final_text_view";
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
@@ -115,8 +116,13 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
             createFakeMenu();
         }
 
-        mLogic.resumeWithHistory();
+//        mLogic.resumeWithHistory();
         updateDeleteMode();
+        if(state!=null ){
+        	Log.d("ddd", "state!=null");
+        	mDisplay.setText(state.getString(FINAL_TEXT_VIEW), CalculatorDisplay.Scroll.NONE);
+            mDisplay.setSelection(state.getInt(CURRENT_CURSOR,0));            
+        }
     }
 
     private void updateDeleteMode() {
@@ -222,6 +228,10 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         if (mPager != null) {
             state.putInt(STATE_CURRENT_VIEW, mPager.getCurrentItem());
         }
+        state.putInt(CURRENT_CURSOR,mDisplay.getSelectionStart());
+        state.putString(FINAL_TEXT_VIEW,mDisplay.getText().toString());
+        Log.d("ddd", "onSaveInstanceState");
+        
     }
 
     @Override
