@@ -61,8 +61,8 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
         super.onCreate(state);
 
         // Disable IME for this application
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
-                WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        //  getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
+        //          WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 
         setContentView(R.layout.main);
         mPager = (ViewPager) findViewById(R.id.panelswitch);
