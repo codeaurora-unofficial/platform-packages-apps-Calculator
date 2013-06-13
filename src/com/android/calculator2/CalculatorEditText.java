@@ -51,15 +51,12 @@ public class CalculatorEditText extends EditText {
         super(context, attrs);
         setCustomSelectionActionModeCallback(new NoTextSelectionMode());
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-    }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-       if (event.getActionMasked() == MotionEvent.ACTION_UP) {
-            // Hack to prevent keyboard and insertion handle from showing.
-           cancelLongPress();
-        }
-        return super.onTouchEvent(event);
+        // It used cancelLongPress to prevent the editor calculating the
+        // cursor position and changing the cursor position.
+        // Now use setShowSoftInputOnFocus to stop the soft input method showing
+        // when the view is focused.
+        setShowSoftInputOnFocus(false);
     }
 
     @Override
