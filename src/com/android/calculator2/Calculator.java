@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -97,6 +98,11 @@ public class Calculator extends Activity implements PanelSwitcher.Listener, Logi
 
         mLogic.setDeleteMode(mPersist.getDeleteMode());
         mLogic.setLineLength(mDisplay.getMaxDigits());
+
+        String mHistroyValue = mHistory.current().getEdited();
+        if(TextUtils.equals(mHistroyValue, mLogic.ERROR) ){
+             mHistory.update(this.getResources().getString(R.string.error));
+        }
 
         HistoryAdapter historyAdapter = new HistoryAdapter(this, mHistory, mLogic);
         mHistory.setObserver(historyAdapter);
