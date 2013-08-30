@@ -43,6 +43,7 @@ class Logic {
     private static final String INFINITY_UNICODE = "\u221e";
 
     public static final String MARKER_EVALUATE_ON_RESUME = "?";
+    public static final String ERROR = "error";
 
     // the two strings below are the result of Double.toString() for Infinity & NaN
     // they are not output to the user and don't require internationalization
@@ -219,6 +220,8 @@ class Logic {
         if (!TextUtils.isEmpty(text) && !TextUtils.equals(text, mErrorString)
                 && text.equals(mResult)) {
             mHistory.update(MARKER_EVALUATE_ON_RESUME);
+        } else if (TextUtils.equals(text, mErrorString)){
+            mHistory.update(ERROR);
         } else {
             mHistory.update(getText());
         }
