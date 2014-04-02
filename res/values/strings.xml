@@ -101,6 +101,7 @@
     <string name="clear_history">Clear history</string>
     <!-- Toast shown when text is copied to the clipboard. -->
     <string name="text_copied_toast">Text copied.</string>
+    <string name="number_too_long">Number is too long.</string>
 
     <!--Content descriptions for accessibility. These strings will be read aloud to users who are using the calculator with
     accessibility features enabled and should reflect the mathematical concept instead of a direct representation of what is shown
