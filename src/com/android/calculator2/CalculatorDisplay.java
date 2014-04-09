@@ -19,12 +19,14 @@ package com.android.calculator2;
 import android.content.Context;
 import android.graphics.Rect;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
 import android.text.method.NumberKeyListener;
 import android.util.AttributeSet;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 /**
@@ -41,6 +43,8 @@ class CalculatorDisplay extends ViewSwitcher {
 
     private static final int ANIM_DURATION = 500;
 
+    private static final int MAX_LENGTH = 200;
+
     enum Scroll { UP, DOWN, NONE }
 
     TranslateAnimation inAnimUp;
@@ -49,9 +53,11 @@ class CalculatorDisplay extends ViewSwitcher {
     TranslateAnimation outAnimDown;
 
     private int mMaxDigits = DEFAULT_MAX_DIGITS;
+    private boolean mSetMaxLengthFeature = false;
 
     public CalculatorDisplay(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mSetMaxLengthFeature = context.getResources().getBoolean(R.bool.set_max_length_feature);
         mMaxDigits = attrs.getAttributeIntValue(null, ATTR_MAX_DIGITS, DEFAULT_MAX_DIGITS);
     }
 
@@ -88,6 +94,10 @@ class CalculatorDisplay extends ViewSwitcher {
             text.setEditableFactory(factory);
             text.setKeyListener(calculatorKeyListener);
             text.setSingleLine();
+            if (mSetMaxLengthFeature) {
+                text.setFilters(new InputFilter[] {
+                        new InputFilter.LengthFilter(MAX_LENGTH)});
+            }
         }
     }
 
@@ -112,6 +122,15 @@ class CalculatorDisplay extends ViewSwitcher {
 
     void insert(String delta) {
         EditText editor = (EditText) getCurrentView();
+
+        if (mSetMaxLengthFeature) {
+            int textLength = editor.getText().length();
+            if (textLength >= MAX_LENGTH) {
+                Toast.makeText(getContext(),
+                        getContext().getResources().getString(R.string.number_too_long),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
         int cursor = editor.getSelectionStart();
         editor.getText().insert(cursor, delta);
     }
