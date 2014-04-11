@@ -16,4 +16,5 @@
 
 <resources>
     <integer name="max_digits">14</integer>
+    <bool name="set_max_length_feature">false</bool>
 </resources>
