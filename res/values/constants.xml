@@ -16,4 +16,5 @@
 
 <resources>
     <integer name="max_digits">14</integer>
+    <integer name="max_input_length">2000</integer>
 </resources>
