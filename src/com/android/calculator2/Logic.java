@@ -169,7 +169,9 @@ class Logic {
 
     void onEnter() {
         if (mDeleteMode == DELETE_MODE_CLEAR) {
-            clearWithHistory(false); // clear after an Enter on result
+            if (!mContext.getResources().getBoolean(R.bool.clear_history_click_enter)) {
+                clearWithHistory(false); // clear after an Enter on result
+            }
         } else {
             evaluateAndShowResult(getText(), CalculatorDisplay.Scroll.UP);
         }
