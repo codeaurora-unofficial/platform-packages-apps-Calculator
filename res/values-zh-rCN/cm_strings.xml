@@ -41,4 +41,5 @@
   <string name="desc_hex">十六进制</string>
   <string name="desc_bin">二进制</string>
   <string name="desc_dec">十进制</string>
+  <string name="text_max_chars">输入字符超长 - 请删除一些字符或者开始计算</string>
 </resources>
