@@ -25,8 +25,8 @@
     <string name="fun_log" msgid="6856905045055937519">"LOG"</string>
     <string name="fun_sin" msgid="7136698561875496766">"SIN"</string>
     <string name="fun_tan" msgid="9116158377794370341">"TAN"</string>
-    <string name="clr" msgid="3126239559646368205">"CLR"</string>
-    <string name="del" msgid="6700172918709138470">"DEL"</string>
+    <string name="clr" msgid="3126239559646368205">"清除"</string>
+    <string name="del" msgid="6700172918709138470">"刪除"</string>
     <string name="desc_const_e" msgid="7752508267661034194">"歐拉數"</string>
     <string name="desc_const_pi" msgid="5843835548313660468">"圓周率"</string>
     <string name="desc_dec_point" msgid="6211527612960070934">"小數點"</string>
